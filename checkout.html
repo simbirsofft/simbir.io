@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оформление заказа - SimbirSoft</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .field-error {
+            margin-top: -5px;
+            margin-bottom: 12px;
+        }
+        .customer-info input, 
+        .customer-info textarea,
+        .payment-details input,
+        .guest-checkout input {
+            margin-bottom: 8px;
+        }    
+        .checkout-section {
+            padding: 80px 0;
+            background: #f5f9ff;
+        }
+        
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .customer-info, .order-summary, .guest-checkout {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .customer-info h2, .order-summary h2, .guest-checkout h2 {
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: #263238;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .customer-info h2::after, 
+        .order-summary h2::after,
+        .guest-checkout h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #1e88e5;
+        }
+        
+        .customer-info label, 
+        .guest-checkout label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #455a64;
+        }
+        
+        .customer-info input, 
+        .customer-info textarea,
+        .payment-details input,
+        .guest-checkout input {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border: 1px solid #cfd8dc;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+            transition: border-color 0.3s;
+        }
+        
+        .customer-info input:focus, 
+        .customer-info textarea:focus,
+        .payment-details input:focus,
+        .guest-checkout input:focus {
+            border-color: #1e88e5;
+            outline: none;
+        }
+        
+        .customer-info textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        #payment-method {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #cfd8dc;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+            background: white;
+        }
+        
+        .payment-details {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f5f9ff;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        #card-payment {
+            display: block;
+        }
+        
+        #order-items {
+            margin-bottom: 30px;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #eceff1;
+        }
+        
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        
+        .total {
+            text-align: right;
+            padding: 20px 0;
+            border-top: 2px solid #1e88e5;
+            margin-top: 20px;
+        }
+        
+        .total h3 {
+            font-size: 22px;
+            color: #263238;
+        }
+        
+        #order-total {
+            color: #1e88e5;
+            font-weight: 600;
+        }
+        
+        #confirm-payment,
+        #save-guest-info {
+            width: 100%;
+            padding: 15px;
+            background: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+        
+        #confirm-payment:hover,
+        #save-guest-info:hover {
+            background: #1565c0;
+        }
+
+        .guest-checkout {
+            display: none;
+            margin-bottom: 30px;
+        }
+
+        .checkout-error {
+            color: #d32f2f;
+            background: #ffebee;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .field-error {
+            color: #d32f2f;
+            font-size: 12px;
+            margin-top: -5px;
+            margin-bottom: 12px;
+            display: none;
+        }
+
+        .invalid-input {
+            border-color: #d32f2f !important;
+        }
+
+        .payment-section {
+            display: none;
+        }
+
+        /* Стили для страницы подтверждения оплаты */
+        .payment-confirmation {
+            display: none;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .payment-confirmation h1 {
+            color: #1e88e5;
+            margin-bottom: 30px;
+        }
+
+        .card-display {
+            background: linear-gradient(135deg, #1e88e5, #0d47a1);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            position: relative;
+            text-align: left;
+        }
+
+        .card-number {
+            font-size: 20px;
+            letter-spacing: 2px;
+            margin: 20px 0;
+        }
+
+        .card-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .card-expiry, .card-cvv {
+            font-size: 14px;
+        }
+
+        .card-expiry-title, .cvv-title {
+            font-size: 10px;
+            opacity: 0.8;
+        }
+
+        .payment-success-icon {
+            color: #4caf50;
+            font-size: 60px;
+            margin: 20px 0;
+        }
+
+        .payment-help {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .back-to-shop {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background: #1e88e5;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .back-to-shop:hover {
+            background: #1565c0;
+        }
+
+        @media (max-width: 768px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-confirmation {
+                padding: 20px;
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🌊</span>
+                <span>SimbirSoft</span>
+            </a>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="products.html">Каталог</a></li>
+                    <li><a href="categories.html">Категории</a></li>
+                    <li><a href="cart.html" class="cart-link">🛒 <span id="cart-count">0</span></a></li>
+                    <li id="auth-link"><a href="auth.html">Войти</a></li>
+                    <li id="user-profile" style="display: none;">
+                        <a href="profile.html" id="user-name"></a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="search-box">
+                <input type="text" placeholder="Поиск программ...">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="checkout-section">
+            <div class="container">
+                <h1>Оформление заказа</h1>
+                
+                <div id="general-error" class="checkout-error"></div>
+                
+                <!-- Блок для гостевого оформления -->
+                <div id="guest-checkout" class="guest-checkout">
+                    <h2>Введите ваши данные</h2>
+                    <div id="guest-checkout-form">
+                        <label for="guest-name">ФИО:</label>
+                        <input type="text" id="guest-name" required>
+                        <div id="guest-name-error" class="field-error">Пожалуйста, введите ФИО</div>
+                        
+                        <label for="guest-email">Email:</label>
+                        <input type="email" id="guest-email" required>
+                        <div id="guest-email-error" class="field-error">Пожалуйста, введите корректный email</div>
+                        
+                        <label for="guest-phone">Телефон:</label>
+                        <input type="tel" id="guest-phone" required>
+                        <div id="guest-phone-error" class="field-error">Пожалуйста, введите корректный номер телефона</div>
+                        
+                        <button id="save-guest-info" class="btn">Продолжить оформление</button>
+                    </div>
+                </div>
+                
+                <div class="checkout-grid">
+                    <div class="customer-info" id="user-info">
+                        <h2>Контактные данные</h2>
+                        <form id="checkout-form">
+                            <label for="name">ФИО:</label>
+                            <input type="text" id="name" required>
+                            <div id="name-error" class="field-error">Пожалуйста, введите ФИО</div>
+                            
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" required>
+                            <div id="email-error" class="field-error">Пожалуйста, введите корректный email</div>
+                            
+                            <label for="phone">Телефон:</label>
+                            <input type="tel" id="phone" required>
+                            <div id="phone-error" class="field-error">Пожалуйста, введите корректный номер телефона</div>
+                            
+                            <label for="address">Адрес (для доставки на физический носитель):</label>
+                            <textarea id="address"></textarea>
+                        </form>
+                    </div>
+                    
+                    <div class="order-summary">
+                        <h2>Ваш заказ</h2>
+                        <div id="order-items">
+                            <!-- Товары будут загружаться через JavaScript -->
+                        </div>
+                        <div class="total">
+                            <h3>Итого: <span id="order-total">0</span> руб.</h3>
+                        </div>
+                        
+                        <div class="payment-methods" id="payment-section">
+                            <h2>Способ оплаты</h2>
+                            <select id="payment-method">
+                                <option value="">Выберите способ оплаты</option>
+                                <option value="card">Банковская карта</option>
+                                <option value="paypal">PayPal</option>
+                                <option value="qiwi">QIWI</option>
+                                <option value="yoomoney">ЮMoney</option>
+                            </select>
+                            <div id="payment-method-error" class="field-error">Пожалуйста, выберите способ оплаты</div>
+                            
+                            <div id="card-payment" class="payment-details">
+                                <label for="card-number">Номер карты:</label>
+                                <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19">
+                                <div id="card-number-error" class="field-error">Номер карты должен содержать 16 цифр</div>
+                                
+                                <label for="card-expiry">Срок действия:</label>
+                                <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5">
+                                <div id="card-expiry-error" class="field-error">Введите срок действия в формате MM/YY</div>
+                                
+                                <label for="card-cvv">CVV:</label>
+                                <input type="text" id="card-cvv" placeholder="123" maxlength="3">
+                                <div id="card-cvv-error" class="field-error">CVV должен содержать 3 цифры</div>
+                            </div>
+                            
+                            <button id="confirm-payment" class="btn">Подтвердить оплату</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Страница подтверждения оплаты -->
+                <div id="payment-confirmation" class="payment-confirmation">
+                    <div class="card-display">
+                        <div>Номер карты</div>
+                        <div class="card-number" id="display-card-number">•••• •••• •••• ••••</div>
+                        <div class="card-details">
+                            <div class="card-expiry">
+                                <div class="card-expiry-title">VALID THRU</div>
+                                <div id="display-card-expiry">MM/YY</div>
+                            </div>
+                            <div class="card-cvv">
+                                <div class="cvv-title">CVV</div>
+                                <div id="display-card-cvv">•••</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="payment-success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h1>Оплата прошла успешно!</h1>
+                    <p>Ваш заказ был успешно оплачен. Спасибо за покупку!</p>
+                    
+                    <div class="payment-help">
+                        <p><strong>Всегда поможем</strong></p>
+                        <p><strong>Mastercard SecureCode</strong></p>
+                        <p>Security Standards Council</p>
+                    </div>
+
+                    <a href="index.html" class="back-to-shop">Вернуться в магазин</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SimbirSoft</h3>
+                    <p>Продажа лицензионного программного обеспечения с 2025 года</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p>support@SimbirSoft.com</p>
+                    <p>+7 (800) 123-45-67</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Подписаться</h3>
+                    <form class="subscribe-form">
+                        <input type="email" placeholder="Ваш email">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SimbirSoft. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Валидация форм
+        document.addEventListener('DOMContentLoaded', function() {
+            // Элементы формы
+            const emailInput = document.getElementById('email');
+            const guestEmailInput = document.getElementById('guest-email');
+            const phoneInput = document.getElementById('phone');
+            const guestPhoneInput = document.getElementById('guest-phone');
+            const cardNumberInput = document.getElementById('card-number');
+            const cardExpiryInput = document.getElementById('card-expiry');
+            const cardCvvInput = document.getElementById('card-cvv');
+            const paymentMethodSelect = document.getElementById('payment-method');
+            
+            // Регулярные выражения для валидации
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const phoneRegex = /^\+?[0-9]{10,15}$/;
+            const cardNumberRegex = /^[0-9]{16}$/;
+            const cardExpiryRegex = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
+            const cardCvvRegex = /^[0-9]{3}$/;
+            
+            // Функция для форматирования номера карты
+            function formatCardNumber(value) {
+                return value.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim();
+            }
+            
+            // Функция для форматирования срока действия карты
+            function formatCardExpiry(value) {
+                return value.replace(/\D/g, '').replace(/(\d{2})(\d)/, '$1/$2');
+            }
+            
+            // Валидация email
+            function validateEmail(email, errorElement) {
+                if (!emailRegex.test(email)) {
+                    errorElement.textContent = 'Пожалуйста, введите корректный email';
+                    errorElement.style.display = 'block';
+                    return false;
+                } else {
+                    errorElement.style.display = 'none';
+                    return true;
+                }
+            }
+            
+            // Валидация телефона
+            function validatePhone(phone, errorElement) {
+                if (!phoneRegex.test(phone)) {
+                    errorElement.textContent = 'Пожалуйста, введите корректный номер телефона';
+                    errorElement.style.display = 'block';
+                    return false;
+                } else {
+                    errorElement.style.display = 'none';
+                    return true;
+                }
+            }
+            
+            // Валидация номера карты
+            function validateCardNumber(cardNumber, errorElement) {
+                const cleaned = cardNumber.replace(/\s/g, '');
+                if (!cardNumberRegex.test(cleaned)) {
+                    errorElement.textContent = 'Номер карты должен содержать 16 цифр';
+                    errorElement.style.display = 'block';
+                    return false;
+                } else {
+                    errorElement.style.display = 'none';
+                    return true;
+                }
+            }
+            
+            // Валидация срока действия карты
+            function validateCardExpiry(expiry, errorElement) {
+                if (!cardExpiryRegex.test(expiry)) {
+                    errorElement.textContent = 'Введите срок действия в формате MM/YY';
+                    errorElement.style.display = 'block';
+                    return false;
+                } else {
+                    errorElement.style.display = 'none';
+                    return true;
+                }
+            }
+            
+            // Валидация CVV
+            function validateCardCvv(cvv, errorElement) {
+                if (!cardCvvRegex.test(cvv)) {
+                    errorElement.textContent = 'CVV должен содержать 3 цифры';
+                    errorElement.style.display = 'block';
+                    return false;
+                } else {
+                    errorElement.style.display = 'none';
+                    return true;
+                }
+            }
+            
+            // Обработчики событий для email
+            emailInput.addEventListener('blur', function() {
+                validateEmail(this.value, document.getElementById('email-error'));
+                if (this.value && !emailRegex.test(this.value)) {
+                    this.classList.add('invalid-input');
+                } else {
+                    this.classList.remove('invalid-input');
+                }
+            });
+            
+            guestEmailInput.addEventListener('blur', function() {
+                validateEmail(this.value, document.getElementById('guest-email-error'));
+                if (this.value && !emailRegex.test(this.value)) {
+                    this.classList.add('invalid-input');
+                } else {
+                    this.classList.remove('invalid-input');
+                }
+            });
+            
+            // Обработчики событий для телефона
+            phoneInput.addEventListener('blur', function() {
+                validatePhone(this.value, document.getElementById('phone-error'));
+                if (this.value && !phoneRegex.test(this.value)) {
+                    this.classList.add('invalid-input');
+                } else {
+                    this.classList.remove('invalid-input');
+                }
+            });
+            
+            guestPhoneInput.addEventListener('blur', function() {
+                validatePhone(this.value, document.getElementById('guest-phone-error'));
+                if (this.value && !phoneRegex.test(this.value)) {
+                    this.classList.add('invalid-input');
+                } else {
+                    this.classList.remove('invalid-input');
+                }
+            });
+            
+            // Обработчики событий для номера карты
+            cardNumberInput.addEventListener('input', function() {
+                this.value = formatCardNumber(this.value);
+            });
+            
+            cardNumberInput.addEventListener('blur', function() {
+                validateCardNumber(this.value, document.getElementById('card-number-error'));
+                if (this.value && !cardNumberRegex.test(this.value.replace(/\s/g, ''))) {
+                    this.classList.add('invalid-input');
+                } else {
+                    this.classList.remove('invalid-input');
+                }
+            });
+            
+            // Обработчики событий для срока действия карты
+            cardExpiryInput.addEventListener('input', function() {
+                this.value = formatCardExpiry(this.value);
+            });
+            
+            cardExpiryInput.addEventListener('blur', function() {
+                validateCardExpiry(this.value, document.getElementById('card-expiry-error'));
+                if (this.value && !cardExpiryRegex.test(this.value)) {
+                    this.classList.add('invalid-input');
+                } else {
+                    this.classList.remove('invalid-input');
+                }
+            });
+            
+            // Обработчики событий для CVV
+            cardCvvInput.addEventListener('blur', function() {
+                validateCardCvv(this.value, document.getElementById('card-cvv-error'));
+                if (this.value && !cardCvvRegex.test(this.value)) {
+                    this.classList.add('invalid-input');
+                } else {
+                    this.classList.remove('invalid-input');
+                }
+            });
+            
+            // Валидация при отправке формы
+            document.getElementById('confirm-payment').addEventListener('click', function(e) {
+                e.preventDefault();
+                let isValid = true;
+                
+                // Проверка обязательных полей
+                const name = document.getElementById('name');
+                const nameError = document.getElementById('name-error');
+                if (!name.value.trim()) {
+                    nameError.textContent = 'Пожалуйста, введите ФИО';
+                    nameError.style.display = 'block';
+                    name.classList.add('invalid-input');
+                    isValid = false;
+                } else {
+                    nameError.style.display = 'none';
+                    name.classList.remove('invalid-input');
+                }
+                
+                if (!validateEmail(emailInput.value, document.getElementById('email-error'))) {
+                    emailInput.classList.add('invalid-input');
+                    isValid = false;
+                }
+                
+                if (!validatePhone(phoneInput.value, document.getElementById('phone-error'))) {
+                    phoneInput.classList.add('invalid-input');
+                    isValid = false;
+                }
+                
+                // Проверка способа оплаты
+                if (!paymentMethodSelect.value) {
+                    document.getElementById('payment-method-error').style.display = 'block';
+                    paymentMethodSelect.classList.add('invalid-input');
+                    isValid = false;
+                } else {
+                    document.getElementById('payment-method-error').style.display = 'none';
+                    paymentMethodSelect.classList.remove('invalid-input');
+                }
+                
+                // Если выбран способ оплаты картой - проверяем данные карты
+                if (paymentMethodSelect.value === 'card') {
+                    if (!validateCardNumber(cardNumberInput.value, document.getElementById('card-number-error'))) {
+                        cardNumberInput.classList.add('invalid-input');
+                        isValid = false;
+                    }
+                    
+                    if (!validateCardExpiry(cardExpiryInput.value, document.getElementById('card-expiry-error'))) {
+                        cardExpiryInput.classList.add('invalid-input');
+                        isValid = false;
+                    }
+                    
+                    if (!validateCardCvv(cardCvvInput.value, document.getElementById('card-cvv-error'))) {
+                        cardCvvInput.classList.add('invalid-input');
+                        isValid = false;
+                    }
+                }
+                
+                if (isValid) {
+                    // Показываем страницу подтверждения оплаты
+                    document.querySelector('.checkout-grid').style.display = 'none';
+                    document.getElementById('payment-confirmation').style.display = 'block';
+                    
+                    // Заполняем данные карты (маскируем часть цифр)
+                    if (paymentMethodSelect.value === 'card') {
+                        const cardNumber = cardNumberInput.value.replace(/\s/g, '');
+                        const maskedNumber = '•••• •••• •••• ' + cardNumber.slice(-4);
+                        document.getElementById('display-card-number').textContent = maskedNumber;
+                        
+                        document.getElementById('display-card-expiry').textContent = cardExpiryInput.value;
+                        document.getElementById('display-card-cvv').textContent = '•••';
+                    }
+                    
+                    // Прокручиваем к подтверждению
+                    document.getElementById('payment-confirmation').scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    document.getElementById('general-error').textContent = 'Пожалуйста, исправьте ошибки в форме';
+                    document.getElementById('general-error').style.display = 'block';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+            
+            // Обработчик для гостевого оформления
+            document.getElementById('save-guest-info').addEventListener('click', function(e) {
+                e.preventDefault();
+                let isValid = true;
+                
+                const guestName = document.getElementById('guest-name');
+                const guestNameError = document.getElementById('guest-name-error');
+                if (!guestName.value.trim()) {
+                    guestNameError.textContent = 'Пожалуйста, введите ФИО';
+                    guestNameError.style.display = 'block';
+                    guestName.classList.add('invalid-input');
+                    isValid = false;
+                } else {
+                    guestNameError.style.display = 'none';
+                    guestName.classList.remove('invalid-input');
+                }
+                
+                if (!validateEmail(guestEmailInput.value, document.getElementById('guest-email-error'))) {
+                    guestEmailInput.classList.add('invalid-input');
+                    isValid = false;
+                }
+                
+                if (!validatePhone(guestPhoneInput.value, document.getElementById('guest-phone-error'))) {
+                    guestPhoneInput.classList.add('invalid-input');
+                    isValid = false;
+                }
+                
+                if (isValid) {
+                    // Здесь можно продолжить оформление
+                    document.getElementById('general-error').style.display = 'none';
+                    document.getElementById('guest-checkout').style.display = 'none';
+                    document.querySelector('.checkout-grid').style.display = 'grid';
+                } else {
+                    document.getElementById('general-error').textContent = 'Пожалуйста, исправьте ошибки в форме';
+                    document.getElementById('general-error').style.display = 'block';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+            
+            // Показываем/скрываем детали оплаты в зависимости от выбранного способа
+            paymentMethodSelect.addEventListener('change', function() {
+                document.querySelectorAll('.payment-details').forEach(el => {
+                    el.style.display = 'none';
+                });
+                
+                if (this.value === 'card') {
+                    document.getElementById('card-payment').style.display = 'block';
+                }
+            });
+        });
+    </script>
+
+    <script src="js/checkout.js" type="module"></script>
+
+    <button class="back-to-top" id="backToTop" title="Наверх">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+</body>
+</html>

@@ -1,0 +1,354 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimbirSoft - Главная</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+        .hero {
+            background: linear-gradient(135deg, #1e88e5, #4fc3f7);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            margin-top: 7px;
+overflow: hidden;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23f5f9ff" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23f5f9ff" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23f5f9ff"/></svg>') no-repeat;
+            background-size: cover;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .features {
+            padding: 80px 0;
+            background: #f5f9ff;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            color: #1e88e5;
+            margin-bottom: 20px;
+        }
+        
+        .popular-products {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: #263238;
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: #546e7a;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="header">
+        
+    </header>
+ <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🌊</span>
+                <span>SimbirSoft</span>
+            </a>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html" class="active">Главная</a></li>
+                    <li><a href="products.html">Каталог</a></li>
+                    <li><a href="categories.html">Категории</a></li>
+                    <li><a href="cart.html" class="cart-link">🛒 <span id="cart-count">0</span></a></li>
+                    <li id="auth-link"><a href="auth.html">Войти</a></li>
+                    <li id="user-profile" style="display: none;">
+                        <a href="profile.html" id="user-name"></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    <main class="main">
+        <section class="hero">
+            <div class="hero-content container">
+                <h1>Лицензионное программное обеспечение</h1>
+                <p>Официальные дистрибутивы с гарантией и поддержкой от ведущих производителей</p>
+                <div class="hero-buttons">
+                    <a href="products.html" class="btn btn-primary">Перейти в каталог</a>
+                    <a href="#popular" class="btn btn-outline">Популярные товары</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Почему выбирают SimbirSoft?</h2>
+                    <p>Мы предлагаем лучшие условия для покупки лицензионного программного обеспечения</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>100% лицензии</h3>
+                        <p>Все программы являются официальными версиями с полной технической поддержкой</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Лучшие цены</h3>
+                        <p>Специальные условия для юридических лиц и образовательных учреждений</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>Поддержка 24/7</h3>
+                        <p>Наши специалисты всегда готовы помочь с установкой и настройкой ПО</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="popular-products" id="popular">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Популярные товары</h2>
+                    <p>Самые востребованные программы среди наших клиентов</p>
+                </div>
+                <div class="products-grid" id="popular-products">
+                    
+                </div>
+                <div class="text-center" style="margin-top: 40px;">
+                    <a href="products.html" class="btn btn-primary">Смотреть все товары</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SimbirSoft</h3>
+                    <p>Продажа лицензионного программного обеспечения с 2025 года</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <a href="tel:+71234567890" style="color: white;">+7 (800) 123-45-67</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Подписаться</h3>
+                    <form class="subscribe-form" onsubmit="event.preventDefault(); alert('Отправлено на ваш email');">
+                        <input type="email" placeholder="Ваш email" required>
+                        <button type="submit" style="color: white;">Отправить</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SimbirSoft. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const popularProducts = [
+                {
+                    id: 1,
+                    name: "Windows 11 Pro",
+                    price: 12990,
+                    category: "os",
+                    brand: "microsoft",
+                    license: "permanent",
+                    image: "windows11.jpg",
+                    description: "Последняя версия ОС Windows с улучшенным интерфейсом и производительностью",
+                    rating: 4.7,
+                    reviews: 128
+                },
+                {
+                    id: 4,
+                    name: "Kaspersky Total Security",
+                    price: 3490,
+                    category: "antivirus",
+                    brand: "kaspersky",
+                    license: "subscription",
+                    image: "kaspersky.jpg",
+                    description: "Комплексная защита для всех ваших устройств",
+                    rating: 4.6,
+                    reviews: 178
+                },
+                {
+                    id: 6,
+                    name: "CorelDRAW Graphics Suite",
+                    price: 7990,
+                    category: "graphics",
+                    brand: "corel",
+                    license: "permanent",
+                    image: "coreldraw.jpg",
+                    description: "Профессиональное решение для векторной графики",
+                    rating: 4.4,
+                    reviews: 64
+                },
+                {
+                    id: 8,
+                    name: "Microsoft 365 Personal",
+                    price: 3990,
+                    category: "office",
+                    brand: "microsoft",
+                    license: "subscription",
+                    image: "office365.jpg",
+                    description: "Офисные приложения с облачным хранилищем",
+                    rating: 4.5,
+                    reviews: 156
+                }
+            ];
+            
+            const container = document.getElementById('popular-products');
+            
+            popularProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="product-image">${product.name.charAt(0)}</div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-rating">
+                            ${'★'.repeat(Math.floor(product.rating))}${product.rating % 1 >= 0.5 ? '½' : ''} (${product.reviews})
+                        </div>
+                        <div class="product-meta">
+                            <span class="product-price">${product.price.toLocaleString()} руб.</span>
+                            <button class="add-to-cart" data-id="${product.id}">В корзину</button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(productCard);
+            });
+            
+            
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productId = parseInt(this.getAttribute('data-id'));
+                    const product = popularProducts.find(p => p.id === productId);
+                    addToCart(productId, product.name);
+                    
+                    
+                    this.textContent = 'Добавлено!';
+                    this.style.backgroundColor = '#4caf50';
+                    setTimeout(() => {
+                        this.textContent = 'В корзину';
+                        this.style.backgroundColor = '#1e88e5';
+                    }, 1000);
+                });
+            });
+        });
+    </script>
+    
+    <script type="module">
+        import db from './js/database.js';
+        
+        
+        function updateCartCount() {
+            const count = db.Cart.getTotalCount();
+            document.querySelectorAll('#cart-count').forEach(el => {
+                el.textContent = count;
+            });
+        }
+        
+        
+        document.addEventListener('DOMContentLoaded', updateCartCount);
+    </script>
+    
+
+    <button class="back-to-top" id="backToTop" title="Наверх">
+    <i class="fas fa-arrow-up"></i>
+
+     <script>
+        
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTopButton = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</button>
+</body>
+</html>

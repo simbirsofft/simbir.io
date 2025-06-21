@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Категории - SimbirSoft</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .categories-hero {
+            background: linear-gradient(135deg, #1e88e5, #4fc3f7);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .categories-hero h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .categories-hero p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #263238;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(30,136,229,0.15);
+        }
+        
+        .category-icon {
+            font-size: 50px;
+            color: #1e88e5;
+            margin-bottom: 20px;
+        }
+        
+        .category-info h2 {
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+        
+        .category-count {
+            display: inline-block;
+            background: #f5f9ff;
+            color: #1e88e5;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🌊</span>
+                <span>SimbirSoft</span>
+            </a>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="products.html">Каталог</a></li>
+                    <li><a href="categories.html" class="active">Категории</a></li>
+                    <li><a href="cart.html" class="cart-link">🛒 <span id="cart-count">0</span></a></li>
+                    <li id="auth-link"><a href="auth.html">Войти</a></li>
+                    <li id="user-profile" style="display: none;">
+                        <a href="profile.html" id="user-name"></a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="search-box">
+                
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="categories-hero">
+            <div class="container">
+                <h1>Категории программного обеспечения</h1>
+                <p>Выберите нужную категорию для просмотра доступных программ</p>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="categories-grid">
+                <a href="products.html?category=os" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <div class="category-info">
+                        <h2>Операционные системы</h2>
+                        <p>Windows, macOS, Linux и серверные решения</p>
+                        <span class="category-count">24 товара</span>
+                    </div>
+                </a>
+                
+                <a href="products.html?category=office" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="category-info">
+                        <h2>Офисные пакеты</h2>
+                        <p>Для работы с документами, таблицами и презентациями</p>
+                        <span class="category-count">18 товаров</span>
+                    </div>
+                </a>
+                
+                <a href="products.html?category=antivirus" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="category-info">
+                        <h2>Антивирусы</h2>
+                        <p>Защита от вирусов, троянов и других угроз</p>
+                        <span class="category-count">12 товаров</span>
+                    </div>
+                </a>
+                
+                <a href="products.html?category=graphics" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="category-info">
+                        <h2>Графика и дизайн</h2>
+                        <p>Редакторы изображений, векторная графика, CAD</p>
+                        <span class="category-count">32 товара</span>
+                    </div>
+                </a>
+                
+                <a href="products.html?category=dev" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="category-info">
+                        <h2>Разработка</h2>
+                        <p>IDE, редакторы кода, системы контроля версий</p>
+                        <span class="category-count">21 товар</span>
+                    </div>
+                </a>
+                
+                <a href="products.html?category=utilities" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="category-info">
+                        <h2>Утилиты</h2>
+                        <p>Архиваторы, очистка системы, управление файлами</p>
+                        <span class="category-count">15 товаров</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SimbirSoft</h3>
+                    <p>Продажа лицензионного программного обеспечения с 2025 года</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p>support@SimbirSoft.com</p>
+                    <p>+7 (800) 123-45-67</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Подписаться</h3>
+                    <form class="subscribe-form">
+                        <input type="email" placeholder="Ваш email">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SimbirSoft. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js" type="module"></script>
+
+    <button class="back-to-top" id="backToTop" title="Наверх">
+    <i class="fas fa-arrow-up"></i>
+</button>
+</body>
+</html>

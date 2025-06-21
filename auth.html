@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход - SimbirSoft</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .auth-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: #f5f9ff;
+            padding: 40px 20px;
+        }
+        
+        .auth-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .auth-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(30, 136, 229, 0.1);
+            overflow: hidden;
+        }
+        
+        .auth-header {
+            padding: 30px;
+            text-align: center;
+            background: linear-gradient(135deg, #1e88e5, #4fc3f7);
+            color: white;
+        }
+        
+        .auth-header h1 {
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        
+        .auth-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid #eceff1;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background: none;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: #263238;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .auth-tab.active {
+            color: #1e88e5;
+        }
+        
+        .auth-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #1e88e5;
+        }
+        
+        .auth-content {
+            padding: 30px;
+        }
+        
+        .auth-pane {
+            display: none;
+        }
+        
+        .auth-pane.active {
+            display: block;
+        }
+        
+        .input-with-icon {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #90a4ae;
+        }
+        
+        .input-with-icon input {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 1px solid #eceff1;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            transition: border-color 0.3s;
+        }
+        
+        .input-with-icon input:focus {
+            border-color: #1e88e5;
+            outline: none;
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .remember-me input {
+            margin-right: 8px;
+        }
+        
+        .forgot-password {
+            font-size: 14px;
+            color: #1e88e5;
+            text-decoration: none;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        
+        .btn-block {
+            width: 100%;
+            display: block;
+        }
+        
+        .auth-divider {
+            position: relative;
+            margin: 25px 0;
+            text-align: center;
+        }
+        
+        .auth-divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: #eceff1;
+            z-index: 1;
+        }
+        
+        .auth-divider span {
+            position: relative;
+            display: inline-block;
+            padding: 0 15px;
+            background-color: white;
+            z-index: 2;
+            color: #90a4ae;
+            font-size: 14px;
+        }
+        
+        .social-login {
+            margin-top: 20px;
+        }
+        
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #eceff1;
+            background: white;
+            color: #263238;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .social-btn i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .social-btn.google:hover {
+            background: #f5f5f5;
+            border-color: #db4437;
+            color: #db4437;
+        }
+        
+        .social-btn.facebook:hover {
+            background: #f5f5f5;
+            border-color: #4267b2;
+            color: #4267b2;
+        }
+        
+        .auth-footer {
+            padding: 20px 30px;
+            border-top: 1px solid #eceff1;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .auth-footer p {
+            margin: 5px 0;
+        }
+        
+        .switch-tab {
+            color: #1e88e5;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .switch-tab:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🌊</span>
+                <span>SimbirSoft</span>
+            </a>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="products.html">Каталог</a></li>
+                    <li><a href="cart.html" class="cart-link">🛒 <span id="cart-count">0</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="auth-page">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h1>Добро пожаловать в SimbirSoft!</h1>
+                    <p>Войдите или зарегистрируйтесь для доступа ко всем возможностям</p>
+                </div>
+                
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">Вход</button>
+                    <button class="auth-tab" data-tab="register">Регистрация</button>
+                </div>
+                
+                <div class="auth-content">
+                    <div class="auth-pane active" id="login-pane">
+                        <form id="login-form">
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="login-email" placeholder="Ваш email" required>
+                            </div>
+                            <div class="input-with-icon">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="login-password" placeholder="Пароль" required>
+                            </div>
+                            <div class="form-options">
+                                <label class="remember-me">
+                                    <input type="checkbox"> Запомнить меня
+                                </label>
+                                <a href="#" class="forgot-password">Забыли пароль?</a>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Войти</button>
+                        </form>
+                        <div class="auth-divider">
+                            <span>или</span>
+                        </div>
+                        <div class="social-login">
+                            <div class="social-buttons">
+                                <button class="social-btn google">
+                                    <i class="fab fa-google"></i> Войти через Google
+                                </button>
+                                <button class="social-btn facebook">
+                                    <i class="fab fa-facebook-f"></i> Войти через Facebook
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="auth-pane" id="register-pane">
+                        <form id="register-form">
+                            <div class="input-with-icon">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="reg-name" placeholder="Ваше имя" required>
+                            </div>
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="reg-email" placeholder="Ваш email" required>
+                            </div>
+                            <div class="input-with-icon">
+                                <i class="fas fa-phone"></i>
+                                <input type="tel" id="reg-phone" placeholder="Телефон" required>
+                            </div>
+                            <div class="input-with-icon">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="reg-password" placeholder="Пароль" required>
+                            </div>
+                            <div class="input-with-icon">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="reg-confirm" placeholder="Подтвердите пароль" required>
+                            </div>
+                            <div class="form-options">
+                                <label class="remember-me">
+                                    <input type="checkbox" required> Я согласен с <a href="#">условиями использования</a>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="auth-footer">
+                    <p>Уже есть аккаунт? <a href="#" class="switch-tab" data-tab="login">Войти</a></p>
+                    <p>Нет аккаунта? <a href="#" class="switch-tab" data-tab="register">Зарегистрироваться</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SimbirSoft</h3>
+                    <p>Продажа лицензионного программного обеспечения с 2025 года</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p>support@SimbirSoft.com</p>
+                    <p>+7 (800) 123-45-67</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SimbirSoft. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+
+    <button class="back-to-top" id="backToTop" title="Наверх">
+    <i class="fas fa-arrow-up"></i>
+</button>
+</body>
+</html>
